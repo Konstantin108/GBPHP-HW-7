@@ -36,7 +36,7 @@ function oneAction()
 		<h2>{$row['name']}</h2>
 		<p>{$row['info']}</p>
 		<p>{$row['price']}р.</p>
-		<p><a href="?p=cart&a=add&id={$row['id']}">добавить в корзину</a></p>
+		<p><a href="?p=cart&a=add&id={$row['id']}">добавить товар в корзину</a></p>
 		<a href="?p=good">назад</a>
 		<hr>
 
