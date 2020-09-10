@@ -11,35 +11,76 @@ function allAction()
 	$sql = "SELECT id, name, price, info FROM goods";
 	$res = mysqli_query(getLink(), $sql);
 
-	$html = '<h1>товары</h1>';
-	while($row = mysqli_fetch_assoc($res)){
-		$html .= <<<php
-		<h3>{$row['name']}</h3>
-		<p>{$row['info']}</p>
-		<p>{$row['price']}р.</p>
-		<a href="?p=good&a=one&id={$row['id']}">подробнее</a>
-		<hr>
-php;
+	$goods = mysqli_fetch_all($res, MYSQLI_ASSOC);
+	    return render(
+            'goodAll',
+            [
+                'goods' => $goods,
+                'title' => 'All goods'
+            ]
+        );
 }
 
-return $html;
+function addGoodAction()
+{
 
+$sqlNewGood = 'SELECT * FROM goods';
+$resNewGood = mysqli_query(getLink(), $sqlNewGood);
+
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+		$name = $_POST['name'];
+		$price = $_POST['price'];
+		$info = $_POST['info'];
+		$sqlAddNewGood = "INSERT INTO goods (id, name, price, info) VALUES (NULL, '{$name}', '{$price}', '{$info}');";
+		if(!empty($name) && !empty($price) && !empty($info)){
+			mysqli_query(getLink(), $sqlAddNewGood);
+			$msg = 'Товар успешно добавлен';
+			setMSG($msg);
+			redirect();
+			exit;
+		}else{
+            	return render(
+            		'emptyFields',
+            		[
+            			'title' => 'emptyFields',
+            		]);
+		}
+	}
 }
+
 
 function oneAction()
 {
 	$sql = "SELECT id, name, price, info FROM goods WHERE id = " . getId();
 	$res = mysqli_query(getLink(), $sql);
+    $good = mysqli_fetch_assoc($res);
+    return render(
+        'goodOne',
+        [
+            'good' => $good,
+            'title' => $good['name']
+        ]
+    );
 
-	$row = mysqli_fetch_assoc($res);
-	return <<<php
-		<h2>{$row['name']}</h2>
-		<p>{$row['info']}</p>
-		<p>{$row['price']}р.</p>
-		<p><a href="?p=cart&a=add&id={$row['id']}">добавить товар в корзину</a></p>
-		<a href="?p=good">назад</a>
-		<hr>
+}
 
-php;
+//function delGoodAction()
+//{
+//	$sqlDel = "DELETE FROM goods WHERE goods.id = " . getId();
+//	$resDel = mysqli_query(getLink(), $sqlDel);
+//	header('Location: ' . '/?p=good&a=all');
+//	exit;
+//}
+
+function delGoodAction()
+    {
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $hiddenGoodId = $_POST['hiddenGoodId'];
+            $sqlDel = "DELETE FROM goods WHERE goods.id = {$hiddenGoodId}";
+            $resGoodDel = mysqli_query(getLink(), $sqlDel);
+            header('Location: ' . '/?p=good&a=all');
+            exit;
+
+    }
 
 }

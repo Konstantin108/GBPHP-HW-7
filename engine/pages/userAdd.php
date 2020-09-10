@@ -4,37 +4,34 @@
 function indexAction()
 {
 
-if (empty($_SESSION['user'])){
-	return <<<php
-		<h2>Вам необходимо авторизоваться для того,<br>чтобы иметь возможность добавить нового пользователя</h2>
-php;
-
-	}
-	return <<<php
-		<form method="post" action="?p=userAdd&a=register">
-			<input name="name" placeholder="введите имя">
-			<input name="position" placeholder="введите должность"><br><br>
-			<input name="login" placeholder="введите логин">
-			<input name="password" placeholder="введите пароль">
-			<input type="submit">
-		</form>
-
-php;
+    	return render(
+    		'userAddIndex',
+    		[
+    			'user' => $_SESSION['user'],
+    			'title' => 'add user',
+    		]);
 
 }
 
 function userAddedAction()
 {
-	return <<<php
-		<h4 style="color: green">Пользователь добавлен<h4>
-		<a href="?p=userAdd">Добавить другого пользователя</a>
-php;
+    	return render(
+    		'userAdded',
+    		[
+    			'title' => 'added user',
+    		]);
 
 }
 
 
 function registerAction()
 {
+
+	if(empty($_POST['login']) || empty($_POST['password'])){
+		header('Location: /?p=userAdd&a=index');
+		return;
+	}
+
 $sqlUsers = 'SELECT * FROM users';
 $resUsers = mysqli_query(getLink(), $sqlUsers);
 

@@ -2,26 +2,38 @@
 
 function indexAction()
 {
-	$html = '<h1>корзина</h1>';
-	if(empty($_SESSION['goods'])){
-		return $html . 'нет товаров';
-	}
-	foreach ($_SESSION['goods'] as $id => $good) {
-		$total = $good['count'] * $good['price'];
-		$html .= <<<php
-			<p>название товара: {$good['name']}</p>
-			<p>
-				количество:
-					<a href="?p=cart&a=decrement&id={$id}">-</a>
-						{$good['count']}
-					<a href="?p=cart&a=add&id={$id}">+</a>
-			</p>
-			<p>цена: {$good['price']}</p>
-			<p>итого: {$total}</p>
-			<hr>
-php;
-	}
-	return $html;
+
+	return render(
+		'cartIndex',
+		[
+			'goods' => $_SESSION['goods'],
+			'title' => 'Cart',
+		]);
+}
+
+function addAjaxAction()
+{
+    header('Content-Type: application/json');
+    $id = postId();
+    $success = false;
+    if(empty($id)){
+        echo json_encode([
+            'success' => $success
+        ]);
+        return;
+    }
+    $msg = goodAdd($id);
+
+        $success = false;
+    	if(empty($msg)){
+    		$msg = 'Товар успешно добавлен';
+    		$success = true;
+    	}
+    	echo json_encode([
+                    'success' => $success,
+                    'msg' => $msg,
+                    'count' => goodsCount()
+                ]);
 }
 
 function addAction()
@@ -65,7 +77,7 @@ function decrementAction()
 {
 	$msg = goodDecrement(getId());
 	if(empty($msg)){
-		$msg = 'Товар успешно добавлен';
+		$msg = '';
 	}
 	setMSG($msg);
 	redirect();
@@ -86,7 +98,7 @@ function goodDecrement($id)
 	}
 
 	if(!empty($_SESSION['goods'][$id])){
-		if($_SESSION['goods'][$id]['count'] == 0){
+		if($_SESSION['goods'][$id]['count'] == 1){
 
 			unset($_SESSION['goods'][$id]);
 			return '';

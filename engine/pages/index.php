@@ -2,5 +2,10 @@
 
 function indexAction()
 {
-	return '<h1>главная</h1>';
+	return render(
+	    'home',
+	    [
+	        'title' => 'Home',
+	    ]
+	);
 }
