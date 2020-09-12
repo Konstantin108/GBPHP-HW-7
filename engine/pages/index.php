@@ -2,10 +2,11 @@
 
 function indexAction()
 {
+
 	return render(
-	    'home',
-	    [
-	        'title' => 'Home',
-	    ]
-	);
+       'home',
+        [
+        	'user' => $_SESSION['user'],
+        	'title' => 'home',
+        ]);
 }

@@ -25,7 +25,6 @@
 		<p>Количество: <?= $row['count'] ?></p>
 
 		<p>Общая стоимость: </p>
-		<p>Статус: <?= $row['status'] ?></p>
 		<input value="<?= $row['id'] ?>" name="orderGoodId" type="hidden">
 		<input type="submit" value="убрать из заказа" style="cursor: pointer">
 	</form>
@@ -35,6 +34,17 @@
 	<form method="post" action="?p=good&a=incrementInOrder">
     		<input type="submit" value="+" style="cursor: pointer"></input>
     </form>
+    <form method="post">
+            	<select name="statusOrder" id="statusOrder">
+            		<option value="nothing">пользователь сделал заказ</option>
+            		<option value="minus">ожидание оплаты</option>
+            		<option value="summ">отправить в работу</option>
+            		<option value="mult">готов к отправке</option>
+            		<option value="div">отправлен</option>
+            		<option value="div">получен</option>
+            	</select>
+            	<input type="submit" value="подтвердить">
+            </form>
 	<hr>
 
 <?php endwhile; ?>

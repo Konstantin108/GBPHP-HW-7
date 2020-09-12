@@ -22,7 +22,10 @@
 		<li><a href="?page=1">главная</a></li>
 		<li><a href="?p=good&a=all">товары</a></li>
 		<li><a href="?p=cart">корзина <span class="countGood">(<?= $countGoodsInCart ?>)</span></a></li>
+		<?php if (empty($_SESSION['user'])) : ?>
+		<?php else : ?>
 		<li><a href="?p=order">мой заказ</a></li>
+		<?php endIf; ?>
 		<li><a href="?p=users&a=index">пользователи</a></li>
 		<li><a href="?p=userAdd&a=index">добавить пользователя</a></li>
 		<li><a href="?p=personalPage&a=index">личный кабинет</a></li>
