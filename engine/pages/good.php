@@ -8,7 +8,7 @@ function indexAction()
 function allAction()
 {
 
-	$sql = "SELECT id, name, price, info FROM goods";
+	$sql = "SELECT id, name, price, info, counter FROM goods";
 	$res = mysqli_query(getLink(), $sql);
 
 	$goods = mysqli_fetch_all($res, MYSQLI_ASSOC);
@@ -49,8 +49,76 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 }
 
 
+function addToOrderAction()
+{
+
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+        $thisId = $_POST['hiddenGoodIdToOrder'];
+
+        $sqlAddToOrder = "INSERT INTO orders (good_id, item, price)
+                         SELECT id, name, price
+                        FROM goods WHERE goods.id = {$thisId}";
+        mysqli_query(getLink(), $sqlAddToOrder);
+        $msg = 'Товар успешно добавлен';
+        			setMSG($msg);
+        			redirect();
+        			exit;
+
+    }
+}
+
+
+function incrementInOrderAction()
+{
+                    //тут не понял как сделать, чтобы можно было найти строку в бд по id и изменить в строке
+                    //значение count
+
+                    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                        $orderGoodId = $_POST['orderGoodId'];
+                        $increment = "UPDATE orders SET count = '344' WHERE orders.id = {$orderGoodId}";
+                        $resIncrement = mysqli_query(getLink(), $increment);
+                        $msg = 'Товар отредактирован';
+                                 setMSG($msg);
+                        header('Location: ' . '/?p=order&a=index');
+                        exit;
+
+                }
+}
+
+function decrementInOrderAction()
+{
+                    //тут не понял как сделать, чтобы можно было найти строку в бд по id и изменить в строке
+                    //значение count
+
+                    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                        $orderGoodId = $_POST['orderGoodId'];
+                        $decrement = "UPDATE orders SET count = '344' WHERE orders.id = {$orderGoodId}";
+                        $resDecrement = mysqli_query(getLink(), $decrement);
+                        $msg = 'Товар отредактирован';
+                                 setMSG($msg);
+                        header('Location: ' . '/?p=order&a=index');
+                        exit;
+
+                }
+}
+
+function delGoodFromOrderAction()
+    {
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $orderGoodId = $_POST['orderGoodId'];
+            $delGoodFromOrder = "DELETE FROM orders WHERE orders.id = {$orderGoodId}";
+            $resGoodFromOrder = mysqli_query(getLink(), $delGoodFromOrder);
+            header('Location: ' . '/?p=order&a=index');
+            exit;
+
+    }
+
+}
+
 function oneAction()
 {
+    $hiddenGoodId = $_POST['hiddenGoodId'];
 	$sql = "SELECT id, name, price, info FROM goods WHERE id = " . getId();
 	$res = mysqli_query(getLink(), $sql);
     $good = mysqli_fetch_assoc($res);

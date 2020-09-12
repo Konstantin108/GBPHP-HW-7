@@ -10,7 +10,7 @@
 			<input name="name" placeholder="введите имя">
 			<input name="position" placeholder="введите должность"><br><br>
 			<input name="login" placeholder="введите логин">
-			<input name="password" placeholder="введите пароль">
+			<input name="password" placeholder="введите пароль"><br><br>
 			<input type="submit" value="добавить пользователя" style="cursor: pointer">
 		</form>
 <?php endIf; ?>

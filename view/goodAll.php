@@ -32,6 +32,10 @@
     class="btn"
     >добавить товар в корзину
 </p>
+<form method="post" action="?p=good&a=addToOrder">
+<input name="hiddenGoodIdToOrder" value="<?= $good['id'] ?>" type="hidden">
+<input type="submit" value="добавить товар к моему заказу" style="cursor: pointer"><br><br>
+</form>
 <a href="?p=updateGood&a=delGood&id=<?= $good['id']?>" class="btn">редактировать товар</a><br><br>
 <form method="post" action="?p=good&a=delGood">
 <input name="hiddenGoodId" value="<?= $good['id'] ?>" type="hidden">
