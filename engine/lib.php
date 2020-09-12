@@ -61,6 +61,14 @@ function getId()
 	return (int)$_GET['id'];
 }
 
+function postId()
+{
+	if(empty($_POST['id'])){
+		return 0;
+	}
+	return (int)$_POST['id'];
+}
+
 function redirect($path = '')    //<--- создание redirect
 {
 	if(!empty($path)){
@@ -80,7 +88,7 @@ function setMSG($msg)
 	$_SESSION['msg'] = $msg;
 }
 
-function segMSG()
+function getMSG()
 {
 	if(empty($_SESSION['msg'])){
 		return '';
@@ -97,4 +105,34 @@ function goodsCount()
 	}
 
 	return count($_SESSION['goods']);
+}
+
+function render($template, $params = [], $layout = 'main')
+{
+	$content = renderTmpl($template, $params);
+	$layout = 'layouts/' . $layout;
+
+    $title = 'Интернет магазин';
+    if($params['title']){
+        $title = $params['title'];
+    }
+
+	return renderTmpl(
+		$layout,
+		[
+		    'countGoodsInCart' => goodsCount(),
+			'content' => $content,
+			'msg' => getMSG(),
+			'title' => $title,
+		]
+	);
+}
+
+function renderTmpl($template, $params = [])
+{
+	ob_start();
+	extract($params);
+	include dirname(__DIR__) . '/view/' . $template . '.php';
+
+	return ob_get_clean();
 }

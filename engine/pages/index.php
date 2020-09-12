@@ -2,5 +2,11 @@
 
 function indexAction()
 {
-	return '<h1>главная</h1>';
+
+	return render(
+       'home',
+        [
+        	'user' => $_SESSION['user'],
+        	'title' => 'home',
+        ]);
 }

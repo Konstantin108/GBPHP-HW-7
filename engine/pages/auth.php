@@ -3,23 +3,12 @@
 
 function indexAction()
 {
-
-if (empty($_SESSION['user'])){
-	return <<<php
-		<form method="post" action="?p=auth&a=login">
-			<input name="login" placeholder="login">
-			<input name="password" placeholder="password">
-			<input type="submit">
-		</form>
-
-php;
-
-	}
-	return <<<php
-		вы авторизованы
-		<a href="?p=auth&a=out">выход</a>
-php;
-
+    	return render(
+    		'authIndex',
+    		[
+    			'user' => $_SESSION['user'],
+    			'title' => 'Auth',
+    		]);
 }
 
 
@@ -44,8 +33,9 @@ function loginAction()
 		$userData = mysqli_fetch_assoc($result);    //<--обработка результата запроса
 
 		if(!empty($userData) && password_verify($password, $userData['password'])){    //<--верификация хэша пароля
-			$_SESSION['user'] = 1;
+			$_SESSION['user'] = 'admin';
 		}
+
 		header('Location: /?p=personalPage');
 		return;
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Сен 03 2020 г., 03:03
+-- Время создания: Сен 12 2020 г., 14:36
 -- Версия сервера: 5.7.29
 -- Версия PHP: 7.2.29
 
@@ -31,19 +31,33 @@ CREATE TABLE `goods` (
   `id` int(11) NOT NULL,
   `name` varchar(200) NOT NULL,
   `price` varchar(10) NOT NULL,
-  `info` text NOT NULL
+  `info` text NOT NULL,
+  `counter` int(10) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `goods`
 --
 
-INSERT INTO `goods` (`id`, `name`, `price`, `info`) VALUES
-(1, 'Товар1', '100', 'Товар 1 инфо'),
-(2, 'Товар2', '200', 'Товар 2 инфо'),
-(3, 'Товар3', '500', 'Товар 3 инфо'),
-(4, 'Товар4', '2100', 'Товар 4 инфо'),
-(5, 'Товар5', '1100', 'Товар 5 инфо');
+INSERT INTO `goods` (`id`, `name`, `price`, `info`, `counter`) VALUES
+(46, 'samsung', '5000', 'good phone', 1),
+(47, 'nokia', '2000', 'very good', 1),
+(48, 'Samsung galaxi', '2334', 'good', 1),
+(49, 'iphone', '9999', 'very old model', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(100) NOT NULL,
+  `good_id` int(100) NOT NULL,
+  `item` varchar(150) NOT NULL,
+  `price` int(100) NOT NULL,
+  `count` int(10) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -65,9 +79,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `login`, `password`, `name`, `is_admin`, `position`) VALUES
-(36, 'admin', '$2y$10$Sr41XvJIeP6VnB0299J4weuxwB1qVrWkS8HuTzNN31KjSLtnV8KvK', 'Константин', 0, 'admin'),
-(53, 'user2', '1232', 'Кирилл', 0, 'director'),
-(54, 'user3', '1233', 'Андрей', 0, 'actor');
+(78, 'admin', '$2y$10$T.COI8.zx6rwo06Oe.Hu8et/90MqhyqTpr8.dIse0L.fG2hncicgG', 'Константин', 1, 'admin'),
+(79, 'user2', '1232', 'Кирилл', 0, 'manager'),
+(80, 'user3', '1233', 'Курага', 0, 'director'),
+(81, 'user4', '1234', 'Андрей', 0, 'driver'),
+(82, 'user5', '1235', 'Иван', 0, 'producer');
 
 --
 -- Индексы сохранённых таблиц
@@ -77,6 +93,12 @@ INSERT INTO `users` (`id`, `login`, `password`, `name`, `is_admin`, `position`) 
 -- Индексы таблицы `goods`
 --
 ALTER TABLE `goods`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `orders`
+--
+ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -93,13 +115,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `goods`
 --
 ALTER TABLE `goods`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+
+--
+-- AUTO_INCREMENT для таблицы `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=222;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
