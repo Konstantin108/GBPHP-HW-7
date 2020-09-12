@@ -4,7 +4,6 @@
 	/**@var array $res*/
     	$sql = "SELECT * FROM orders";
     	$res = mysqli_query(getLink(), $sql);
-    	VAR_DUMP($orderGoodId);
 
 ?>
 <style>
