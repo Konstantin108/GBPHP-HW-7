@@ -3,11 +3,11 @@
 function indexAction()
 {
 
-    	return render(
-    		'personalPageIndex',
-    		[
-    			'user' => $_SESSION['user'],
-    			'title' => 'PersonalPage',
-    		]);
+    return render(
+        'personalPageIndex',
+        [
+            'user' => $_SESSION['user'],
+            'title' => 'PersonalPage',
+        ]);
 
 }

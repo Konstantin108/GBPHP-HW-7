@@ -3,10 +3,10 @@
 function indexAction()
 {
 
-	return render(
-       'home',
+    return render(
+        'home',
         [
-        	'user' => $_SESSION['user'],
-        	'title' => 'home',
+            'user' => $_SESSION['user'],
+            'title' => 'home',
         ]);
 }

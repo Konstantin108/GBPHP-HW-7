@@ -4,11 +4,11 @@
 function indexAction()
 {
 
-    	return render(
-    		'orderIndex',
-    		[
-    		    'user' => $_SESSION['user'],
-    			'title' => 'order',
-    		]);
+    return render(
+        'orderIndex',
+        [
+            'user' => $_SESSION['user'],
+            'title' => 'order',
+        ]);
 
 }
