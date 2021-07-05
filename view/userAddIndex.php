@@ -7,9 +7,9 @@
     <?php if ($_SESSION['is_admin'] == 1) : ?>
         <h1 style="color: blue">добавление пользователя</h1>
         <form method="post" action="?p=userAdd&a=register">
-            <input name="name" id="name" placeholder="введите имя">
-            <input name="position" id="position" placeholder="введите должность"><br><br>
-            <input name="login" id="login" placeholder="введите логин">
+            <input type="text" name="name" id="name" placeholder="введите имя">
+            <input type="text" name="position" id="position" placeholder="введите должность"><br><br>
+            <input type="text" name="login" id="login" placeholder="введите логин">
             <input name="password" id="password" placeholder="введите пароль"><br><br>
             <input name="avatar" id="avatar" type="hidden" value="no_avatar.png">
             <input type="submit" value="добавить пользователя" style="cursor: pointer">

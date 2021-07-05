@@ -15,9 +15,9 @@
     <?php if ($_SESSION['is_admin'] == 1) : ?>
         <h1 style="color: blue">добавить товар</h1>
         <form method="post" action="?p=good&a=addGood">
-            <input name="name" id="name" placeholder="название товара">
-            <input name="price" id="price" placeholder="цена товара"><br><br>
-            <input name="info" id="info" placeholder="о товаре">
+            <input type="text" name="name" id="name" placeholder="название товара">
+            <input type="text" name="price" id="price" placeholder="цена товара"><br><br>
+            <input type="text" name="info" id="info" placeholder="о товаре">
             <input type="hidden" name="counter" id="counter" value="1">
             <input type="hidden" name="img" id="img" value="no_img.jpg">
             <input type="submit" value="добавить товар" style="cursor: pointer">

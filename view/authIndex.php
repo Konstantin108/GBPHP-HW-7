@@ -3,8 +3,8 @@
 ?>
 <?php if (empty($_SESSION['user'])) : ?>
     <form method="post" action="?p=auth&a=login">
-        <input name="login" placeholder="login">
-        <input name="password" placeholder="password">
+        <input name="login" id="login" placeholder="login" type="text">
+        <input name="password" id="name" placeholder="password" type="text">
         <input type="submit">
     </form>
 <?php else : ?>
